@@ -16,6 +16,7 @@ def vectorize_text_to_cosine_mat(data):
 
 
 def get_recommendation(title, cosine_sim_mat, df, num_of_rec):
+    title=title.lower()
     course_indices = pd.Series(df.index, index=df['course_title']).drop_duplicates()
     idx = course_indices[title]
     scores = list(enumerate(cosine_sim_mat[idx]))
@@ -25,6 +26,7 @@ def get_recommendation(title, cosine_sim_mat, df, num_of_rec):
     result = df[['course_title', 'url']].iloc[selected_course_indices]
     rec_df = pd.DataFrame(result)
     rec_df['similarity_scores'] = selected_course_scores
+    rec_df['course_title']=rec_df['course_title'].str.title()
     return rec_df.head(num_of_rec)
 
 
