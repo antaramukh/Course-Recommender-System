@@ -16,7 +16,7 @@ def vectorize_text_to_cosine_mat(data):
 
 
 def get_recommendation(title, similarity, df, num_of_rec):
-    title = title.lower()
+    title = title.lower().strip(" ")
     course_index = df[df['Name'] == title].index[0]
     scores = list(enumerate(similarity[course_index]))
     sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
