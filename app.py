@@ -17,29 +17,31 @@ def vectorize_text_to_cosine_mat(data):
 
 def get_recommendation(title, similarity, df, num_of_rec):
     title = title.lower().strip(" ")
-    course_index = df[df['Name'] == title].index[0]
+    course_index = df[df['course_title'] == title].index[0]
     scores = list(enumerate(similarity[course_index]))
     sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
-    selected_course_indices = [i[0] for i in sorted_scores[1:]]
-    selected_course_scores = [i[1] for i in sorted_scores[1:]]
-    result = df[['Name', 'Url']].iloc[selected_course_indices]
+    selected_course_indices = [i[0] for i in sorted_scores[0:]]
+    selected_course_scores = [i[1] for i in sorted_scores[0:]]
+    result = df[['course_title', 'url']].iloc[selected_course_indices]
     rec_df = pd.DataFrame(result)
     rec_df['similarity_scores'] = selected_course_scores
-    rec_df['Name'] = rec_df['Name'].str.title()
+    rec_df['course_title'] = rec_df['course_title'].str.title()
     return rec_df.head(num_of_rec)
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    course_title = dataset['course_title'].str.title().unique()
+    return render_template('index.html', course_title=course_title)
+
 
 
 @app.route('/result', methods=['POST'])
 def result():
     df = pd.read_csv('courses.csv')
     df = df.iloc[:,1:]
-
-    search_term = str(request.form.get('title'))
+    course_title = dataset['course_title'].str.title().unique()
+    search_term = str(request.form.get('course'))
     num_of_rec = int(request.form.get('num'))
 
     try:
@@ -49,11 +51,11 @@ def result():
 
         data = data.rename(columns={'course_title': 'Course Name', 'url': 'Course Link', 'similarity_scores': 'Similarity Score'})
 
-        return render_template('index.html',  tables=[data.to_html(classes='data', render_links=True, escape=False, index=False)], titles=data.columns.values)
+        return render_template('index.html',  tables=[data.to_html(classes='data', render_links=True, escape=False, index=False)], titles=data.columns.values, course_title=course_title)
 
 
     except:
-        return render_template('index.html', error="Sorry! Could Not Find This Course in the Dataset")
+        return render_template('index.html', error="Sorry! Could Not Find This Course in the Dataset", course_title=course_title)
 
 
 if __name__ == "__main__":
