@@ -8,6 +8,28 @@
 
     <title>Course Recommender</title>
       <style>
+        input {
+
+            padding: 5px;
+            height: 35px;
+            width: 100%;
+            outline: none;
+
+}
+        datalist {
+              position: absolute;
+              background-color: white;
+              border: 1px solid gray;
+              border-radius: 0 0 5px 5px;
+              border-top: none;
+              font-family: sans-serif;
+              width: 55%;
+              padding: 5px;
+              max-height: 10rem;
+              overflow-y: auto;
+
+}
+
 
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
@@ -49,6 +71,21 @@
              border: 1px solid gray;
              border-radius: 3px;
         }
+
+
+
+option {
+  background-color: white;
+  padding: 4px;
+  color: gray;
+  margin-bottom: 1px;
+   font-size: 18px;
+  cursor: pointer;
+}
+
+option:hover,  .active{
+  background-color: lightblue;
+}
         table {
             border: none !important;
             margin: 10px 70px;
@@ -63,6 +100,7 @@
             white-space: nowrap;
             background-color: white;
         }
+
 
         th,td {
             text-align: center;
@@ -108,12 +146,14 @@
             .main-body {
                 max-width: 70%;
             }
+
         }
 
         @media (max-width: 662px) and (min-width:300px) {
             .main-body {
                 max-width: 90%;
             }
+
         }
 
     </style>
@@ -126,23 +166,32 @@
           <div class="main-body">
               <div class="jumbotron bg-cover text-white">
                   <div class="container py-5 text-center">
-                      <h1 class="display-4">Course Recommender</h1>
+                      <h1 class="display-4" style="padding:15px;">Course Recommender</h1>
                         <br>
-                      <p class="font-italic mb-0">A content-based filtering system which merges Udemy and Coursera datasets and
+                      <p class="font-italic mb-0"  style="padding:15px;">A content-based filtering system which merges Udemy and Coursera datasets and
               recommends courses based on the course title provided by the user.</p>
                   </div>
               </div>
               <form action="/result" method="POST" onsubmit="">
                   <div>
-                      <input type="text" class="form-control" id="title" name="title" required placeholder="Enter Course Title">
+                      <input autocomplete="off"  list="" id="input" name="course" required placeholder="Enter or Select Course Title">
+                      <!--<input autocomplete="off" type="text" class="form-control" id="title" name="title" required placeholder="Enter or Select Course Title" list="" />-->
+                        <datalist id="course" name="Course">
+                            {% for course_title in course_title %}
+                          <option value="{{course_title}}">{{course_title}}</option>
+                              {% endfor %}
+                        </datalist>
+
                   </div> <br>
                   <div>
-                      <input type="number" class="form-control" id="num" name="num" required placeholder="Enter Number of Recommendations">
+                      <input type="number"  id="num" name="num" required placeholder="Enter Number of Recommendations">
                   </div><br>
                   <div class="col-md-12" style="text-align:center;">
                       <button class="btn-btn-primary form-control" type="submit" style="max-width: 100%;"><b> Recommend </b></button>
+
                   </div><br>
               </form>
+              <span style="padding:15px;"></span>
           </div>
       </div>
 
@@ -151,8 +200,67 @@
           {% for table in tables %}
           {{ table|safe }}
           {% endfor %}
-      </div> <br> <br>
+      </div>
+
+      <br> <br>
       <footer> <small>Copyright &copy; 2021, Antara Mukherjee</small> </footer>
   </center>
+<script>
+input.onfocus = function () {
+  course.style.display = 'block';
+  input.style.borderRadius = "5px 5px 0 0";
+};
+for (let option of course.options) {
+  option.onclick = function () {
+    input.value = option.value;
+    course.style.display = 'none';
+    input.style.borderRadius = "5px";
+  }
+};
+input.oninput = function() {
+  var text = input.value.toUpperCase();
+  for (let option of course.options) {
+    if(option.value.toUpperCase().indexOf(text) > -1){
+      option.style.display = "block";
+  }else{
+    option.style.display = "none";
+    }
+  };
+}
+
+var currentFocus = -1;
+input.onkeydown = function(e) {
+  if(e.keyCode == 40){
+    currentFocus++
+   addActive(course.options);
+  }
+  else if(e.keyCode == 38){
+    currentFocus--
+   addActive(course.options);
+  }
+  else if(e.keyCode == 13){
+    e.preventDefault();
+        if (currentFocus > -1) {
+          if (course.options)
+course.options[currentFocus].click();
+        }
+  }
+}
+
+function addActive(x) {
+    if (!x) return false;
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0)
+       currentFocus = (x.length - 1);
+    x[currentFocus].classList.add("active");
+  }
+  function removeActive(x) {
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("active");
+    }
+  }
+
+</script>
 </body>
 </html>
