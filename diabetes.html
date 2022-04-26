@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <title>Diabetes Predictor</title>
+    <style>
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        .bodyy{
+         color: white; text-align:center;add margin: auto; max-width:50%;padding:20px; margin-top=10px;
+        }
+        select{
+            padding:10px;
+        }
+        body{
+            background: #355C7D;
+            background: -webkit-linear-gradient(to bottom, #C06C84, #6C5B7B, #355C7D);
+            background: linear-gradient(to bottom, #C06C84, #6C5B7B, #355C7D);
+        }
+        @media (max-width: 993px) and (min-width:663px){
+            .bodyy {max-width: 70%;}
+        }
+        @media (max-width: 662px) and (min-width:300px) {
+            .bodyy {max-width: 90%;}
+        }
+    </style>
+</head>
+
+<body class="bg-dark">
+  <center>
+    <div class="bodyy">
+
+          <div class="header">
+              <h1>Diabetes Predictor</h1><br>
+
+          </div>
+
+
+              <div class="card-body">
+
+             <form action="/diabetes/predict" method="POST" onsubmit="">
+                 <div class="row">
+
+                  <div class="col-md-6 form-group">
+                      <input type="number" class="form-control" id="Pregnancies" name="Pregnancies" required placeholder="Enter No. of Pregnancies">
+                  </div><br><br><br>
+                  <div class="col-md-6 form-group">
+                      <input type="float" class="form-control" id="Glucose" name="Glucose" required placeholder="Enter Glucose">
+                  </div><br><br><br>
+                  <div class="col-md-6 form-group">
+                      <input type="float" class="form-control" id="BloodPressure" name="BloodPressure" required placeholder="Enter Blood Pressure">
+                  </div><br><br><br>
+
+                  <div class="col-md-6 form-group">
+                      <input type="float" class="form-control" id="SkinThickness" name="SkinThickness" required placeholder="Enter Skin Thickness">
+                  </div><br><br><br>
+
+                  <div class="col-md-6 form-group">
+                      <input type="float" class="form-control" id="Insulin" name="Insulin" required placeholder="Enter Insulin">
+                  </div><br>
+                  <div class="col-md-6 form-group">
+                      <input type="float" class="form-control" id="BMI" name="BMI" required placeholder="Enter BMI">
+                  </div><br><br><br>
+
+                  <div class="col-md-6 form-group">
+                      <input type="float" class="form-control" id="DiabetesPedigreeFunction" name="DiabetesPedigreeFunction" required placeholder="Enter Diabetes Pedigree Function">
+                  </div><br><br><br>
+                  <div class="col-md-6 form-group">
+                      <input type="number" class="form-control" id="Age" name="Age" required placeholder="Enter your Age">
+                  </div><br><br><br>
+</div>
+                  <div class="col-md-12" style="text-align:center;">
+                      <button class="btn-btn-primary form-control" type="submit" style="max-width: 100%;"><b> Predict </b></button>
+                  </div><br>
+              </form>
+
+              <div class="col-md-12" style="text-align:center">
+                  <b><h3> {{ error }} </h3></b>
+              </div>
+          </div></div>
+        <br><br><br><br><br><br><br><br>
+      </div>
+</center>
+
+  </body>
+</html>

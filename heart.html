@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <title>Heart Disease Predictor</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        .bodyy{
+         color: white; text-align:center;add margin: auto; max-width:70%;padding:20px; margin-top=10px;
+        }
+        select{
+            padding:10px;
+        }
+        body{
+            background: #777;
+        }
+        @media (max-width: 993px) and (min-width:663px){
+            .bodyy {max-width: 70%;}
+        }
+        @media (max-width: 662px) and (min-width:300px) {
+            .bodyy {max-width: 90%;}
+        }
+    </style>
+</head>
+
+<body class="bg-dark">
+  <center>
+    <div class="bodyy">
+
+          <div class="header">
+              <h1>Heart Disease Predictor</h1><br>
+
+          </div>
+
+
+              <div class="card-body">
+
+             <form action="/heart/predict" method="POST" onsubmit="">
+                 <div class="row">
+
+                  <div>
+                      <input type="number" class="form-control" id="age" name="age" required placeholder="Enter age">
+                  </div><br><br><br>
+                     <div>
+
+                      <select class="form-control" id="sex" name="sex" required>
+                          <option value="" selected disabled hidden>Select Sex</option>
+                          <option value="0">Female</option>
+                          <option value="1">Male</option>
+                      </select>
+                      <br>
+                  </div>
+                     <div>
+
+                      <select class="form-control" id="restecg" name="restecg" required>
+                          <option value="" selected disabled hidden>Select Resting electrocardiographic results</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                      </select>
+                      <br>
+                  </div>
+                     <div>
+
+                      <select class="form-control" id="cp" name="cp" required>
+                          <option value="" selected disabled hidden>Select Chest pain type:</option>
+                          <option value="1">typical angina,</option>
+                          <option value="2">atypical angina,</option>
+                          <option value="3">non-anginal pain</option>
+                          <option value="4">asymptom</option>
+                      </select>
+                      <br>
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <input type="number" class="form-control" id="trestbps" name="trestbps" required placeholder="Enter Resting blood pressure (in mm Hg)">
+                  </div><br><br><br>
+                  <div class="col-md-6 form-group">
+                      <input type="number" class="form-control" id="chol" name="chol" required placeholder="Enter Serum cholesterol in mg/dl">
+                  </div><br><br><br>
+                     <div>
+
+                      <select class="form-control" id="fbs" name="fbs" required>
+                          <option value="" selected disabled hidden>Is Fasting blood sugar>120 mg/dl?</option>
+                          <option value="1">Yes</option>
+                          <option value="0">No</option>
+                      </select>
+                      <br>
+                  </div>
+                     <div>
+
+                      <select class="form-control" id="exang" name="exang" required>
+                          <option value="" selected disabled hidden>Is it Exercise induced angina:?</option>
+                          <option value="1">Yes</option>
+                          <option value="0">No</option>
+                      </select>
+                      <br>
+                  </div>
+
+                  <div class="col-md-6 form-group">
+                      <input type="number" class="form-control" id="thalach" name="thalach" required placeholder="Enter Maximum heart rate achieved">
+                  </div><br><br><br>
+
+                  <div class="col-md-6 form-group">
+                      <input type="number" class="form-control" id="oldpeak" name="oldpeak" required placeholder="Enter Depression induced by exercise relative to rest">
+                  </div><br>
+                  <br><br>
+                     <div>
+
+                      <select class="form-control" id="slope" name="slope" required>
+                          <option value="" selected disabled hidden>Select The slope of the peak exercise segment:</option>
+                          <option value="1">up sloping</option>
+                          <option value="2">flat</option>
+                          <option value="3">down sloping</option>
+
+                      </select>
+                      <br>
+                  </div>
+                     <div>
+                      <input type="number" class="form-control" id="ca" name="ca" required placeholder="Enter Number of major vessels colored by fluoroscopy
+that ranged between 0 and 3.">
+                  </div><br><br>
+                     <div>
+
+                      <select class="form-control" id="thal" name="thal" required>
+                          <option value="" selected disabled hidden>Select Chest pain type:</option>
+                          <option value="3">normal</option>
+                          <option value="6">fixed defect;</option>
+                          <option value="7">reversible defect</option>
+
+                      </select>
+                      <br>
+                  </div>
+
+
+                  <div class="col-md-12" style="text-align:center;">
+                      <button class="btn-btn-primary form-control" type="submit" style="max-width: 100%;"><b> Predict </b></button>
+                  </div><br></div>
+              </form>
+
+              <div class="col-md-12" style="text-align:center">
+                  <b><h3> {{ error }} </h3></b>
+              </div>
+          </div></div>
+        <br><br><br><br><br><br><br><br>
+      </div>
+</center>
+
+  </body>
+</html>
